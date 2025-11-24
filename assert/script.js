@@ -6,6 +6,8 @@ let interval = null;
 const startBtn = document.getElementById("startBtn");
 const btnContainerEl = document.getElementById("btn-container");
 const showBookBtn = document.getElementById("showBookBtn");
+const closeBookBtn = document.getElementById("close-book-btn");
+
 const numberTextEl = document.getElementById("number-text");
 const happyBirthdaySongEl = document.getElementById("happyBirthdaySong");
 const cakeBirthdayEl = document.getElementById("cake-birthday");
@@ -16,10 +18,13 @@ const dancingAnimalsArr = document.getElementsByClassName("dancing-animal");
 const fireElArr = document.getElementsByClassName("fire");
 startBtn.addEventListener("click", start);
 showBookBtn.addEventListener("click", showBook);
+closeBookBtn.addEventListener("click", closeBook);
+
 const bookEl = document.getElementById("book");
 
 function start() {
-  btnContainerEl.style.display = "none";
+  console.log('start');
+    btnContainerEl.style.display = "none";
     // numberTextEl.classList.add("counting-text");
     // numberTextEl.style.display = "block";
     // root.style.setProperty("--count-animate", timeCount);
@@ -39,7 +44,7 @@ function start() {
 function hide() {
   numberTextEl.style.display = "none";
   //remember to play music
-//   playMusic();
+  // playMusic();
   setTimeout(() => {
     confetiBalloons();
   }, 0);
@@ -47,6 +52,9 @@ function hide() {
 
 function showBook() {
   bookEl.classList.add('show');
+}
+function closeBook() {
+  bookEl.classList.remove('show');
 }
 
 function playMusic () {
@@ -71,7 +79,7 @@ function cakeAnimation() {
       for (let i = 0; i < fireElArr.length; i++) {
         fireElArr[i].classList.add("fuego");
       }
-    }, 1400)
+    }, 1500)
     setTimeout(() => {
       showBookBtn.style.opacity = 1;
     }, 5000)
