@@ -4,6 +4,7 @@ let root = document.documentElement;
 let interval = null;
 
 const startBtn = document.getElementById("startBtn");
+const btnContainerEl = document.getElementById("btn-container");
 const showBookBtn = document.getElementById("showBookBtn");
 const numberTextEl = document.getElementById("number-text");
 const happyBirthdaySongEl = document.getElementById("happyBirthdaySong");
@@ -12,13 +13,13 @@ const candleEl = document.getElementById("candle");
 const realCakeEl = document.getElementById("real-cake");
 const overlayEl = document.getElementById("overlay");
 const dancingAnimalsArr = document.getElementsByClassName("dancing-animal");
-const fireElArr = document.getElementsByClassName("fire")
+const fireElArr = document.getElementsByClassName("fire");
 startBtn.addEventListener("click", start);
 showBookBtn.addEventListener("click", showBook);
 const bookEl = document.getElementById("book");
 
 function start() {
-    startBtn.style.display = "none";
+  btnContainerEl.style.display = "none";
     // numberTextEl.classList.add("counting-text");
     // numberTextEl.style.display = "block";
     // root.style.setProperty("--count-animate", timeCount);
@@ -45,44 +46,7 @@ function hide() {
 }
 
 function showBook() {
-  console.log("show book");
-  console.log(bookEl);
   bookEl.classList.add('show');
-  initBook();
-
-}
-
-function initBook() {
-  const pages = document.querySelectorAll('.page');
-  const nextPageButton = document.getElementById('nextPage');
-  let currentPageIndex = 0;
-
-  nextPageButton.addEventListener('click', () => {
-    if (currentPageIndex < pages.length - 1) {
-      pages[currentPageIndex].classList.add('flipped');
-      currentPageIndex++;
-    } else {
-      // Optional: Reset or loop back to the beginning
-      alert('End of book!');
-      // To reset:
-      // pages.forEach(page => page.classList.remove('flipped'));
-      // currentPageIndex = 0;
-    }
-  });
-
-  // Optional: Allow clicking on pages to flip
-  pages.forEach((page, index) => {
-    page.addEventListener('click', () => {
-      if (index === currentPageIndex && index < pages.length - 1) {
-        page.classList.add('flipped');
-        currentPageIndex++;
-      } else if (index === currentPageIndex - 1 && index >= 0) {
-        // Allow flipping back
-        pages[currentPageIndex - 1].classList.remove('flipped');
-        currentPageIndex--;
-      }
-    });
-  });
 }
 
 function playMusic () {
