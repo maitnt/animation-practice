@@ -1,41 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assert/style.css" />
-    <title>Happy birthday</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <script type="text/javascript">
-      var colours = ['#ff3366', '#ff6699', '#ff33cc', '#ff99cc', '#ff66b2', '#ff0066']; 
-      var minisize = 16; 
-      var maxisize = 28; 
-      var hearts = 66; 
-      var over_or_under = "over"; 
-    
-      var x = ox = 400;
-      var y = oy = 300;
-      var swide = 800;
-      var shigh = 600;
-      var sleft = sdown = 0;
-      var herz = [];
-      var herzx = [];
-      var herzy = [];
-      var herzs = [];
-      var kiss = false;
-    
-      if (typeof('addRVLoadEvent') != 'function') function addRVLoadEvent(funky) {
-        var oldonload = window.onload;
-        if (typeof(oldonload) != 'function') window.onload = funky;
-        else window.onload = function() {
-          if (oldonload) oldonload();
-          funky();
-        }
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assert/style.css" />
+  <title>Happy birthday</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- script for flying heart follow mouse movement -->
+  <script type="text/javascript">
+    var colours = ['#ff3366', '#ff6699', '#ff33cc', '#ff99cc', '#ff66b2', '#ff0066'];
+    var minisize = 16;
+    var maxisize = 28;
+    var hearts = 66;
+    var over_or_under = "over";
+
+    var x = ox = 400;
+    var y = oy = 300;
+    var swide = 800;
+    var shigh = 600;
+    var sleft = sdown = 0;
+    var herz = [];
+    var herzx = [];
+    var herzy = [];
+    var herzs = [];
+    var kiss = false;
+
+    if (typeof ('addRVLoadEvent') != 'function') function addRVLoadEvent(funky) {
+      var oldonload = window.onload;
+      if (typeof (oldonload) != 'function') window.onload = funky;
+      else window.onload = function () {
+        if (oldonload) oldonload();
+        funky();
       }
-    
-      addRVLoadEvent(mwah);
-    
-      function mwah() { if (document.getElementById) {
+    }
+
+    addRVLoadEvent(mwah);
+
+    function mwah() {
+      if (document.getElementById) {
         var i, heart;
         for (i = 0; i < hearts; i++) {
           heart = createDiv("auto", "auto");
@@ -52,169 +58,169 @@
         set_scroll();
         set_width();
         herzle();
-      }}
-    
-      function herzle() {
-        var c;
-        if (Math.abs(x - ox) > 1 || Math.abs(y - oy) > 1) {
-          ox = x;
-          oy = y;
-          for (c = 0; c < hearts; c++) if (herzy[c] === false) {
-            herz[c].firstChild.nodeValue = String.fromCharCode(9829);
-            herz[c].style.left = (herzx[c] = x - minisize / 2) + "px";
-            herz[c].style.top = (herzy[c] = y - minisize) + "px";
-            herz[c].style.fontSize = minisize + "px";
-            herz[c].style.fontWeight = 'normal';
-            herz[c].style.visibility = 'visible';
-            herzs[c] = minisize;
-            break;
-          }
-        }
-        for (c = 0; c < hearts; c++) if (herzy[c] !== false) blow_me_a_kiss(c);
-        setTimeout(herzle, 40);
       }
-    
-      document.onmousedown = pucker;
-      document.onmouseup = function() { clearTimeout(kiss); };
-    
-      function pucker() {
-        ox = -1;
-        oy = -1;
-        kiss = setTimeout(pucker, 100);
-      }
-    
-      function blow_me_a_kiss(i) {
-        herzy[i] -= herzs[i] / minisize + i % 2;
-        herzx[i] += (i % 5 - 2) / 5;
-        if (herzy[i] < sdown - herzs[i] || herzx[i] < sleft - herzs[i] || herzx[i] > sleft + swide - herzs[i]) {
-          herz[i].style.visibility = "hidden";
-          herzy[i] = false;
-        }
-        else if (herzs[i] > minisize + 2 && Math.random() < .5 / hearts) break_my_heart(i);
-        else {
-          if (Math.random() < maxisize / herzy[i] && herzs[i] < maxisize) herz[i].style.fontSize = (++herzs[i]) + "px";
-          herz[i].style.top = herzy[i] + "px";
-          herz[i].style.left = herzx[i] + "px";
+    }
+
+    function herzle() {
+      var c;
+      if (Math.abs(x - ox) > 1 || Math.abs(y - oy) > 1) {
+        ox = x;
+        oy = y;
+        for (c = 0; c < hearts; c++) if (herzy[c] === false) {
+          herz[c].firstChild.nodeValue = String.fromCharCode(9829);
+          herz[c].style.left = (herzx[c] = x - minisize / 2) + "px";
+          herz[c].style.top = (herzy[c] = y - minisize) + "px";
+          herz[c].style.fontSize = minisize + "px";
+          herz[c].style.fontWeight = 'normal';
+          herz[c].style.visibility = 'visible';
+          herzs[c] = minisize;
+          break;
         }
       }
-    
-      function break_my_heart(i) {
-        herz[i].firstChild.nodeValue = String.fromCharCode(9676);
-        herz[i].style.fontWeight = 'bold';
+      for (c = 0; c < hearts; c++) if (herzy[c] !== false) blow_me_a_kiss(c);
+      setTimeout(herzle, 40);
+    }
+
+    document.onmousedown = pucker;
+    document.onmouseup = function () { clearTimeout(kiss); };
+
+    function pucker() {
+      ox = -1;
+      oy = -1;
+      kiss = setTimeout(pucker, 100);
+    }
+
+    function blow_me_a_kiss(i) {
+      herzy[i] -= herzs[i] / minisize + i % 2;
+      herzx[i] += (i % 5 - 2) / 5;
+      if (herzy[i] < sdown - herzs[i] || herzx[i] < sleft - herzs[i] || herzx[i] > sleft + swide - herzs[i]) {
+        herz[i].style.visibility = "hidden";
         herzy[i] = false;
-        setTimeout(() => herz[i].style.visibility = "hidden", 400);
       }
-    
-      document.onmousemove = mouse;
-      function mouse(e) {
-        if (e) { y = e.pageY; x = e.pageX; }
-        else { set_scroll(); y = event.y + sdown; x = event.x + sleft; }
+      else if (herzs[i] > minisize + 2 && Math.random() < .5 / hearts) break_my_heart(i);
+      else {
+        if (Math.random() < maxisize / herzy[i] && herzs[i] < maxisize) herz[i].style.fontSize = (++herzs[i]) + "px";
+        herz[i].style.top = herzy[i] + "px";
+        herz[i].style.left = herzx[i] + "px";
       }
-    
-      window.onresize = set_width;
-      function set_width() {
-        var sw_min = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-        var sh_min = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-        swide = sw_min;
-        shigh = sh_min;
-      }
-    
-      window.onscroll = set_scroll;
-      function set_scroll() {
-        sdown = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        sleft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
-      }
-    
-      function createDiv(height, width) {
-        var div = document.createElement("div");
-        div.style.position = "absolute";
-        div.style.height = height;
-        div.style.width = width;
-        div.style.overflow = "hidden";
-        div.style.backgroundColor = "transparent";
-        return div;
-      }
-      </script>
-  </head>
-  <body>
-    <!-- styling css green polka dot box -->
-    <!-- <div class="container">
-      <div class="present"> 
-        <div class="lid-box-present"></div>
-        <div class="box"></div>
-        <div class="bow"></div>
-        <div class="ribbon"></div>
-      </div>
-    </div> -->
-    <!-- <audio id="happyBirthdaySong" src="./assert/happy_birthday.mp3" preload="auto"></audio> -->
+    }
 
-    <svg width="0" height="0" aria-hidden="true">
-      <!-- extend filter region-->
-      <filter id="glow-0" x="-.25" y="-.25" width="1.5" height="1.5">
-        <feComponentTransfer>
-          <feFuncA type="table" tableValues="0 2 0"></feFuncA>
-        </feComponentTransfer>
-        <feGaussianBlur stdDeviation="2"></feGaussianBlur>
-        <feComponentTransfer result="rond">
-          <feFuncA type="table" tableValues="-2 3"></feFuncA>
-        </feComponentTransfer>
-        <feMorphology operator="dilate" radius="3"></feMorphology>
-        <feGaussianBlur stdDeviation="6"></feGaussianBlur>
-        <feBlend in="rond" result="glow"></feBlend>
-        <feComponentTransfer in="SourceGraphic">
-          <feFuncA type="table" tableValues="0 0 1"></feFuncA>
-        </feComponentTransfer>
-        <feBlend in2="glow"></feBlend>
-      </filter>
-      <!-- extend filter region-->
-      <filter id="glow-1" x="-.25" y="-.25" width="1.5" height="1.5">
-        <feComponentTransfer in="SourceGraphic" result="grad">
-          <feFuncA type="table" tableValues="0 2 0"></feFuncA>
-        </feComponentTransfer>
-        <feMorphology operator="dilate" radius="3"></feMorphology>
-        <feGaussianBlur stdDeviation="6" result="glow"></feGaussianBlur>
-        <feTurbulence type="fractalNoise" baseFrequency="7.13"></feTurbulence>
-        <feDisplacementMap in="glow" scale="12" yChannelSelector="R"></feDisplacementMap>
-        <feComponentTransfer>
-          <feFuncA type="linear" slope=".8"></feFuncA>
-        </feComponentTransfer>
-        <feBlend in="grad" result="out"></feBlend>
-        <feComponentTransfer in="SourceGraphic">
-          <feFuncA type="table" tableValues="0 0 1"></feFuncA>
-        </feComponentTransfer>
-        <feBlend in2="out"></feBlend>
-      </filter>
-    </svg>
+    function break_my_heart(i) {
+      herz[i].firstChild.nodeValue = String.fromCharCode(9676);
+      herz[i].style.fontWeight = 'bold';
+      herzy[i] = false;
+      setTimeout(() => herz[i].style.visibility = "hidden", 400);
+    }
 
-    <div id="btn-container" class="btn-container">
-      <button id="startBtn" class="btn hologram">
-        <span id="hologram" data-text="Hologram">START</span>
-        <div id="scan-line" class="scan-line"></div>
-      </button>
-      <div id="caution" class="caution">please use headphones for better experience</div>
+    document.onmousemove = mouse;
+    function mouse(e) {
+      if (e) { y = e.pageY; x = e.pageX; }
+      else { set_scroll(); y = event.y + sdown; x = event.x + sleft; }
+    }
+
+    window.onresize = set_width;
+    function set_width() {
+      var sw_min = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+      var sh_min = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+      swide = sw_min;
+      shigh = sh_min;
+    }
+
+    window.onscroll = set_scroll;
+    function set_scroll() {
+      sdown = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      sleft = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
+    }
+
+    function createDiv(height, width) {
+      var div = document.createElement("div");
+      div.style.position = "absolute";
+      div.style.height = height;
+      div.style.width = width;
+      div.style.overflow = "hidden";
+      div.style.backgroundColor = "transparent";
+      return div;
+    }
+  </script>
+
+</head>
+
+<body>
+  <!-- glowing effect for the envelope -->
+  <svg width="0" height="0" aria-hidden="true">
+    <!-- extend filter region-->
+    <filter id="glow-0" x="-.25" y="-.25" width="1.5" height="1.5">
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 2 0"></feFuncA>
+      </feComponentTransfer>
+      <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+      <feComponentTransfer result="rond">
+        <feFuncA type="table" tableValues="-2 3"></feFuncA>
+      </feComponentTransfer>
+      <feMorphology operator="dilate" radius="3"></feMorphology>
+      <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+      <feBlend in="rond" result="glow"></feBlend>
+      <feComponentTransfer in="SourceGraphic">
+        <feFuncA type="table" tableValues="0 0 1"></feFuncA>
+      </feComponentTransfer>
+      <feBlend in2="glow"></feBlend>
+    </filter>
+    <!-- extend filter region-->
+    <filter id="glow-1" x="-.25" y="-.25" width="1.5" height="1.5">
+      <feComponentTransfer in="SourceGraphic" result="grad">
+        <feFuncA type="table" tableValues="0 2 0"></feFuncA>
+      </feComponentTransfer>
+      <feMorphology operator="dilate" radius="3"></feMorphology>
+      <feGaussianBlur stdDeviation="6" result="glow"></feGaussianBlur>
+      <feTurbulence type="fractalNoise" baseFrequency="7.13"></feTurbulence>
+      <feDisplacementMap in="glow" scale="12" yChannelSelector="R"></feDisplacementMap>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope=".8"></feFuncA>
+      </feComponentTransfer>
+      <feBlend in="grad" result="out"></feBlend>
+      <feComponentTransfer in="SourceGraphic">
+        <feFuncA type="table" tableValues="0 0 1"></feFuncA>
+      </feComponentTransfer>
+      <feBlend in2="out"></feBlend>
+    </filter>
+  </svg>
+
+  <!-- start btn and caution section -->
+  <div id="btn-container" class="btn-container">
+    <button id="startBtn" class="btn hologram">
+      <span id="hologram" data-text="Hologram">START</span>
+      <div id="scan-line" class="scan-line"></div>
+    </button>
+    <div id="caution" class="caution">please use headphones for better experience</div>
+  </div>
+
+  <!-- audio section -->
+  <audio id="happyBirthdaySong" preload="auto">
+    <source src="./assert/happy_birthday.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- count down number section -->
+  <div id="number">
+    <span id="number-text">5</span>
+  </div>
+  <canvas id="c"></canvas>
+
+  <!-- animated cake section -->
+  <div id="cake-birthday" class="cake-container">
+    <div id="candle">
+      <div class="fire"></div>
+      <div class="fire"></div>
+      <div class="fire"></div>
+      <div class="fire"></div>
+      <div class="fire"></div>
     </div>
-    
-    <audio id="happyBirthdaySong" preload="auto">
-      <source src="./assert/happy_birthday.mp3" type="audio/mpeg" >
-      Your browser does not support the audio tag.
-    </audio>
-    <div id="number">
-      <span id="number-text">5</span>
-    </div>
-    <canvas id="c"></canvas>
-
-    <div id="cake-birthday" class="cake-container">
-      <div id="candle">
-        <div class="fire"></div>
-        <div class="fire"></div>
-        <div class="fire"></div>
-        <div class="fire"></div>
-        <div class="fire"></div>
-      </div>
-      <svg id="real-cake" version="1.1" x="0px" y="0px" width="200px" height="500px" viewBox="0 0 200 500" enable-background="new 0 0 200 500" xml:space="preserve">
-        <path fill="#a88679" d="M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
+    <svg id="real-cake" version="1.1" x="0px" y="0px" width="200px" height="500px" viewBox="0 0 200 500"
+      enable-background="new 0 0 200 500" xml:space="preserve">
+      <path fill="#a88679" d="M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c44.697,0,96.586,0,147.334,0C177.667-29.942,177.668-13.94,173.667-13.94z">
-            <animate id="bizcocho_3" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1" begin="relleno_2.end" dur="0.3s" fill="freeze" values="
+        <animate id="bizcocho_3" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1" begin="relleno_2.end"
+          dur="0.3s" fill="freeze" values="
                               M173.667-13.94c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c44.697,0,96.586,0,147.334,0C177.667-29.942,177.668-13.94,173.667-13.94z
                               ;
@@ -225,11 +231,12 @@
                               M173.667,427.569c-49.795,0-101.101,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c46.385,0,97.539,0,147.334,0C177.668,411.567,177.667,427.569,173.667,427.569z
                               " />
-        </path>
-        <path fill="#8b6a60" d="M100-178.521c1.858,0,3.364,1.506,3.364,3.363c0,0,0,33.17,0,44.227
+      </path>
+      <path fill="#8b6a60" d="M100-178.521c1.858,0,3.364,1.506,3.364,3.363c0,0,0,33.17,0,44.227
         c0,19.144,0,57.431,0,76.574c0,10.152,0,40.607,0,40.607c0,1.858-1.506,3.364-3.364,3.364l0,0c-1.858,0-3.364-1.506-3.364-3.364c0,0,0-30.455,0-40.607c0-19.144,0-57.432,0-76.575c0-11.057,0-44.226,0-44.226C96.636-177.015,98.142-178.521,100-178.521
         L100-178.521z">
-            <animate id="relleno_2" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 0.58 1" begin="bizcocho_2.end" dur="0.5s" fill="freeze" values="
+        <animate id="relleno_2" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 0.58 1"
+          begin="bizcocho_2.end" dur="0.5s" fill="freeze" values="
                               M100-178.521c1.858,0,3.364,1.506,3.364,3.363c0,0,0,33.17,0,44.227
         c0,19.144,0,57.431,0,76.574c0,10.152,0,40.607,0,40.607c0,1.858-1.506,3.364-3.364,3.364l0,0c-1.858,0-3.364-1.506-3.364-3.364c0,0,0-30.455,0-40.607c0-19.144,0-57.432,0-76.575c0-11.057,0-44.226,0-44.226C96.636-177.015,98.142-178.521,100-178.521
         L100-178.521z
@@ -248,10 +255,11 @@
         c19.143,0,20.39-3.797,26.459,0c3,1.877,0,7.823,0,7.823c-2.412,2.258-58.328,0-73.667,0l0,0c-1.858,0-67.187,0-73.667,0
         c0,0-4.125-4.983,0-7.823c5.201-3.58,16.085,0,23.725,0c8.841,0,20.762,0,20.762,0c3.686,0,8.597,0,19.511,0H102.242z
                               " />
-        </path>
-        <path fill="#a88679" d="M173.667-15.929c-46.512,0-105.486,0-147.334,0c-3.999,0-4-16.002,0-16.002
+      </path>
+      <path fill="#a88679" d="M173.667-15.929c-46.512,0-105.486,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c43.566,0,97.96,0,147.334,0C177.667-31.931,177.666-15.929,173.667-15.929z">
-            <animate id="bizcocho_2" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0.25 0 0.58 1" begin="relleno_1.end" dur="0.5s" fill="freeze" values="
+        <animate id="bizcocho_2" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0.25 0 0.58 1"
+          begin="relleno_1.end" dur="0.5s" fill="freeze" values="
                               M173.667-15.929c-46.512,0-105.486,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c43.566,0,97.96,0,147.334,0C177.667-31.931,177.666-15.929,173.667-15.929z
                               ;
@@ -264,11 +272,12 @@
                               M173.667,451.394c-49.298,0-102.782,0-147.334,0c-3.999,0-4-16.002,0-16.002
         c44.697,0,96.586,0,147.334,0C177.667,435.392,177.668,451.394,173.667,451.394z
                               " />
-        </path>
-        <path fill="#8b6a60" d="M101.368-73.685c0,12.164,0,15.18,0,28.519c0,22.702,0-13.661,0,8.304c0,14.48,0,18.233,0,30.512
+      </path>
+      <path fill="#8b6a60" d="M101.368-73.685c0,12.164,0,15.18,0,28.519c0,22.702,0-13.661,0,8.304c0,14.48,0,18.233,0,30.512
         c0,1.753-2.958,1.847-2.958,0c0-12.68,0-16.277,0-30.401c0-21.983,0,11.66,0-8.305c0-13.027,0-15.992,0-28.628
         C98.411-75.883,101.368-75.592,101.368-73.685z">
-            <animate id="relleno_1" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 0.6 1" begin="bizcocho_1.end" dur="0.5s" fill="freeze" values="
+        <animate id="relleno_1" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 0.6 1"
+          begin="bizcocho_1.end" dur="0.5s" fill="freeze" values="
                               M101.368-73.685c0,12.164,0,15.18,0,28.519c0,22.702,0-13.661,0,8.304c0,14.48,0,18.233,0,30.512
         c0,1.753-2.958,1.847-2.958,0c0-12.68,0-16.277,0-30.401c0-21.983,0,11.66,0-8.305c0-13.027,0-15.992,0-28.628
         C98.411-75.883,101.368-75.592,101.368-73.685z
@@ -285,10 +294,12 @@
         c-14.48,0-17.884,0-30.163,0c-2.087,0-2.068,0-3.915,0c-13.333,0-8.963,0-23.088,0c-11.668,0-34.99-0.294-48.412,1.831
         c-4.109,0.65-3.01-10.006,0-10.006C37.129,451.394,149.379,451.394,173.667,451.394z
                               " />
-        </path>
-        <path fill="#a88679" d="M173.667,21.571c-33.174,0-111.467,0-147.334,0c-4,0-4-16.002,0-16.002c39.836,0,105.982,0,147.334,0
+      </path>
+      <path fill="#a88679" d="M173.667,21.571c-33.174,0-111.467,0-147.334,0c-4,0-4-16.002,0-16.002c39.836,0,105.982,0,147.334,0
         C177.668,5.569,177.667,21.571,173.667,21.571z">
-            <animate id="bizcocho_1" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0.25 0 0.6 1" begin="5s" dur="0.8s" fill="freeze" values="
+        <animate id="bizcocho_1" attributeName="d" calcMode="spline"
+          keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0.25 0 0.6 1" begin="5s" dur="0.8s" fill="freeze"
+          values="
                               M173.667,21.571c-33.174,0-111.467,0-147.334,0c-4,0-4-16.002,0-16.002c39.836,0,105.982,0,147.334,0
         C177.668,5.569,177.667,21.571,173.667,21.571z
                               ;
@@ -310,12 +321,14 @@
                               M173.667,475.571c-46.512,0-105.486,0-147.334,0c-3.999,0-4-16.002,0-16.002c43.566,0,97.96,0,147.334,0
         C177.667,459.569,177.666,475.571,173.667,475.571z
                               " />
-        </path>
-        <path fill="#fefae9" d="M104.812,113.216c0,3.119-2.164,5.67-4.812,5.67c-2.646,0-4.812-2.551-4.812-5.67c0-5.594,0-16.782,0-22.375
+      </path>
+      <path fill="#fefae9" d="M104.812,113.216c0,3.119-2.164,5.67-4.812,5.67c-2.646,0-4.812-2.551-4.812-5.67c0-5.594,0-16.782,0-22.375
       c0-5.143,0-15.427,0-20.568c0-7.333,0-21.998,0-29.33c0-5.523,0-16.569,0-22.092c0-3.295,0-9.885,0-13.181
       C95.188,2.551,97.353,0,100,0c2.648,0,4.812,2.551,4.812,5.669c0,3.248,0,9.743,0,12.991c0,5.428,0,16.284,0,21.711
       c0,7.618,0,22.854,0,30.472c0,4.952,0,14.854,0,19.807C104.812,96.292,104.812,107.576,104.812,113.216z">
-            <animate id="crema" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0 0 0.58 1" begin="bizcocho_3.end" dur="2s" fill="freeze" values="
+        <animate id="crema" attributeName="d" calcMode="spline"
+          keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0 0 0.58 1" begin="bizcocho_3.end" dur="2s"
+          fill="freeze" values="
                               M104.812,113.216c0,3.119-2.164,5.67-4.812,5.67c-2.646,0-4.812-2.551-4.812-5.67c0-5.594,0-16.782,0-22.375
       c0-5.143,0-15.427,0-20.568c0-7.333,0-21.998,0-29.33c0-5.523,0-16.569,0-22.092c0-3.295,0-9.885,0-13.181
       C95.188,2.551,97.353,0,100,0c2.648,0,4.812,2.551,4.812,5.669c0,3.248,0,9.743,0,12.991c0,5.428,0,16.284,0,21.711
@@ -356,66 +369,60 @@
       c16.642-0.61,32.903,1.125,46.213,1.5c12.438,0.351,35.058-5.579,31.863,6.451c-5.532,20.833,1.25,28.216-4.409,27.883
       c-7.606-0.447-6.058-37.895-20.62-23.333c-10.167,10.166-15.972-0.747-25,12C119.547,443.568,121.798,416.515,111.547,415.233z
                               " />
-        </path>
-        <rect x="10" y="475.571" fill="#fefae9" width="180" height="4" />
-      </svg>
-    </div>
-    <div class="matrix" id="matrix"></div>
-
-    <img class="dancing-animal gif chick" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnRkMzF2M3Bpa3U1MGFqNWd5NWZpejltZGQxaHA1b3Q5YW82dDA0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zzALYeLqMLDa6PEV2C/giphy.gif" />
-    <img class="dancing-animal gif pup" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW05YjcxbHhpNjl6bTFsbXg3MWJuemoydm1kbTU1ZG9sZ2RudmQxZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tFSqMSMnzPRTAdvKyr/giphy.gif"/>
-    <!-- <div id="overlay"></div> -->
-    <!-- <button id="showBookBtn" class="neon-pulse">
-      <span><i class="fa-regular fa-envelope"></i></span>
-    </button> -->
-    <!-- <div id="showBookBtn" class="wrapper-envelope neon-pulse">
-      <div class="lid one"></div>
-      <div class="lid two"></div>
-      <div class="envelope"></div>
-      <div class="letter">
-        <p>Hello</p>
-      </div>
-    </div> -->
-
-    <div id="showBookBtn" class="envelope" style="--f: url(#glow-1); 
-							 --l: #ff45457f, #00ff997f, #006aff7f, #ff00957f, #ff45457f">
-  <div class="envelope-body">
-    <div class="back-fold"></div>
-    <div class="left-fold"></div>
-    <div class="right-fold"></div>
-    <div class="bottom-fold"></div>
-    <div class="letter">
-      <p>Hello from inside the envelope!</p>
-    </div>
-    <div class="top-fold"></div>
+      </path>
+      <rect x="10" y="475.571" fill="#fefae9" width="180" height="4" />
+    </svg>
   </div>
-  <div class="shadow"></div>
-</div> 
-    <!-- <div class="card">
-      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif"/>
-      <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif"/>
+  <div class="matrix" id="matrix"></div>
 
-    </div> -->
-
-    <div id="book" class="book-container">
-      <button id="close-book-btn" class="close-btn">x</button>
-      <div class="inner-page">
-        <div class="left">
-          <!-- <img class="large" src="./assert/image.JPG"/> -->
-          <img class="small heart" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif"/>
-          <img class="cert" src="./assert/cert.jpg"/>
-        </div>
-        <div class="right">
-          <img class="medium hug" src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif"/>
-          Just wanted to remind you - you're my favorite person. My days are better, smiles are wider, and life is sweeter because of you. <br>
-          I hope your birthday is full of love, magic, and everything that makes you smile ❤<br>
-          All the luck and best wishes will find you today and always. <br>I'll always be here to remind you how special you are to me.
-          Let's always stay like this... together, forever.
-        </div>
-      
+  <!-- dancing animal section -->
+  <img class="dancing-animal gif chick"
+    src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnRkMzF2M3Bpa3U1MGFqNWd5NWZpejltZGQxaHA1b3Q5YW82dDA0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zzALYeLqMLDa6PEV2C/giphy.gif" />
+  <img class="dancing-animal gif pup"
+    src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW05YjcxbHhpNjl6bTFsbXg3MWJuemoydm1kbTU1ZG9sZ2RudmQxZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tFSqMSMnzPRTAdvKyr/giphy.gif" />
+  
+   <!-- envelope section -->
+  <div id="showBookBtn" class="envelope">
+    <div class="envelope-body">
+      <div class="back-fold" style="--f: url(#glow-1); 
+							 --l: #ff45457f, #00ff997f, #006aff7f, #ff00957f, #ff45457f"></div>
+      <div class="left-fold"></div>
+      <div class="right-fold"></div>
+      <div class="bottom-fold"></div>
+      <div class="letter">
+        <p>Click</p>
       </div>
+      <div class="top-fold"></div>
     </div>
+    <div class="shadow"></div>
+  </div>
 
-    <script src="./assert/script.js"></script>
-  </body>
+  <!-- card section -->
+  <div id="book" class="book-container">
+    <button id="close-book-btn" class="close-btn">x</button>
+    <div class="inner-page">
+      <div class="left">
+        <!-- <img class="large" src="./assert/image.JPG"/> -->
+        <img class="small heart"
+          src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif" />
+        <img class="cert" src="./assert/cert.jpg" />
+      </div>
+      <div class="right">
+        <img class="medium hug"
+          src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif" />
+        Just wanted to remind you - you're my favorite person. My days are better, smiles are wider, and life is sweeter
+        because of you. <br>
+        I hope your birthday is full of love, magic, and everything that makes you smile <span style="color: red">❤</span><br>
+        All the luck and best wishes will find you today and always. <br>I'll always be here to remind you how special
+        you are to me.
+        Let's always stay like this... together, forever. Happy birthday to my dear! 
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mojs/core"></script>
+  <script src="./assert/script.js"></script>
+</body>
+
 </html>
