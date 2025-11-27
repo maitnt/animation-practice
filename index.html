@@ -140,13 +140,51 @@
     <!-- styling css green polka dot box -->
     <!-- <div class="container">
       <div class="present"> 
-        <div class="lid"></div>
+        <div class="lid-box-present"></div>
         <div class="box"></div>
         <div class="bow"></div>
         <div class="ribbon"></div>
       </div>
     </div> -->
     <!-- <audio id="happyBirthdaySong" src="./assert/happy_birthday.mp3" preload="auto"></audio> -->
+
+    <svg width="0" height="0" aria-hidden="true">
+      <!-- extend filter region-->
+      <filter id="glow-0" x="-.25" y="-.25" width="1.5" height="1.5">
+        <feComponentTransfer>
+          <feFuncA type="table" tableValues="0 2 0"></feFuncA>
+        </feComponentTransfer>
+        <feGaussianBlur stdDeviation="2"></feGaussianBlur>
+        <feComponentTransfer result="rond">
+          <feFuncA type="table" tableValues="-2 3"></feFuncA>
+        </feComponentTransfer>
+        <feMorphology operator="dilate" radius="3"></feMorphology>
+        <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+        <feBlend in="rond" result="glow"></feBlend>
+        <feComponentTransfer in="SourceGraphic">
+          <feFuncA type="table" tableValues="0 0 1"></feFuncA>
+        </feComponentTransfer>
+        <feBlend in2="glow"></feBlend>
+      </filter>
+      <!-- extend filter region-->
+      <filter id="glow-1" x="-.25" y="-.25" width="1.5" height="1.5">
+        <feComponentTransfer in="SourceGraphic" result="grad">
+          <feFuncA type="table" tableValues="0 2 0"></feFuncA>
+        </feComponentTransfer>
+        <feMorphology operator="dilate" radius="3"></feMorphology>
+        <feGaussianBlur stdDeviation="6" result="glow"></feGaussianBlur>
+        <feTurbulence type="fractalNoise" baseFrequency="7.13"></feTurbulence>
+        <feDisplacementMap in="glow" scale="12" yChannelSelector="R"></feDisplacementMap>
+        <feComponentTransfer>
+          <feFuncA type="linear" slope=".8"></feFuncA>
+        </feComponentTransfer>
+        <feBlend in="grad" result="out"></feBlend>
+        <feComponentTransfer in="SourceGraphic">
+          <feFuncA type="table" tableValues="0 0 1"></feFuncA>
+        </feComponentTransfer>
+        <feBlend in2="out"></feBlend>
+      </filter>
+    </svg>
 
     <div id="btn-container" class="btn-container">
       <button id="startBtn" class="btn hologram">
@@ -250,7 +288,7 @@
         </path>
         <path fill="#a88679" d="M173.667,21.571c-33.174,0-111.467,0-147.334,0c-4,0-4-16.002,0-16.002c39.836,0,105.982,0,147.334,0
         C177.668,5.569,177.667,21.571,173.667,21.571z">
-            <animate id="bizcocho_1" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0.25 0 0.6 1" begin="14s" dur="0.8s" fill="freeze" values="
+            <animate id="bizcocho_1" attributeName="d" calcMode="spline" keySplines="0 0 1 1; 0 0 1 1; 0 0 1 1; 0.25 0 1 1; 0 0 1 1; 0.25 0 0.6 1" begin="5s" dur="0.8s" fill="freeze" values="
                               M173.667,21.571c-33.174,0-111.467,0-147.334,0c-4,0-4-16.002,0-16.002c39.836,0,105.982,0,147.334,0
         C177.668,5.569,177.667,21.571,173.667,21.571z
                               ;
@@ -326,10 +364,33 @@
 
     <img class="dancing-animal gif chick" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnRkMzF2M3Bpa3U1MGFqNWd5NWZpejltZGQxaHA1b3Q5YW82dDA0aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zzALYeLqMLDa6PEV2C/giphy.gif" />
     <img class="dancing-animal gif pup" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbW05YjcxbHhpNjl6bTFsbXg3MWJuemoydm1kbTU1ZG9sZ2RudmQxZSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tFSqMSMnzPRTAdvKyr/giphy.gif"/>
-    <div id="overlay"></div>
-    <button id="showBookBtn" class="neon-pulse">
+    <!-- <div id="overlay"></div> -->
+    <!-- <button id="showBookBtn" class="neon-pulse">
       <span><i class="fa-regular fa-envelope"></i></span>
-    </button>
+    </button> -->
+    <!-- <div id="showBookBtn" class="wrapper-envelope neon-pulse">
+      <div class="lid one"></div>
+      <div class="lid two"></div>
+      <div class="envelope"></div>
+      <div class="letter">
+        <p>Hello</p>
+      </div>
+    </div> -->
+
+    <div id="showBookBtn" class="envelope" style="--f: url(#glow-1); 
+							 --l: #ff45457f, #00ff997f, #006aff7f, #ff00957f, #ff45457f">
+  <div class="envelope-body">
+    <div class="back-fold"></div>
+    <div class="left-fold"></div>
+    <div class="right-fold"></div>
+    <div class="bottom-fold"></div>
+    <div class="letter">
+      <p>Hello from inside the envelope!</p>
+    </div>
+    <div class="top-fold"></div>
+  </div>
+  <div class="shadow"></div>
+</div> 
     <!-- <div class="card">
       <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/IzXiddo2twMmdmU8Lv/giphy.gif"/>
       <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZTg4bzhxYmdqc2syYnoyNDJjdmc3YXJ3bTl2aGdleG5oNTI2OThqdyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/gjHkRHSuHqu99y9Yjt/giphy.gif"/>
