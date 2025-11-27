@@ -13,7 +13,6 @@ const happyBirthdaySongEl = document.getElementById("happyBirthdaySong");
 const cakeBirthdayEl = document.getElementById("cake-birthday");
 const candleEl = document.getElementById("candle");
 const realCakeEl = document.getElementById("real-cake");
-const overlayEl = document.getElementById("overlay");
 const dancingAnimalsArr = document.getElementsByClassName("dancing-animal");
 const fireElArr = document.getElementsByClassName("fire");
 startBtn.addEventListener("click", start);
@@ -22,70 +21,95 @@ closeBookBtn.addEventListener("click", closeBook);
 
 const bookEl = document.getElementById("book");
 
+// start everything
 function start() {
-  console.log('start');
-    btnContainerEl.style.display = "none";
-    // numberTextEl.classList.add("counting-text");
-    // numberTextEl.style.display = "block";
-    // root.style.setProperty("--count-animate", timeCount);
-    // numberTextEl.innerText = 5;
+  btnContainerEl.style.display = "none";
+  numberTextEl.classList.add("counting-text");
+  numberTextEl.style.display = "block";
+  root.style.setProperty("--count-animate", timeCount);
+  numberTextEl.innerText = 5;
 
-    // interval = setInterval(() => {
-    // timing--;
-    // numberTextEl.innerText = timing;
-    // console.log(timing);
-
-    // if (timing < 1) {
-    //     clearInterval(interval);
-        hide();
-    // }
-    // }, 1000);
+  interval = setInterval(() => {
+    timing--;
+    numberTextEl.innerText = timing;
+    if (timing < 1) {
+      clearInterval(interval);
+      hide();
+    }
+  }, 1000);
 }
+
+// hide number text and play music
 function hide() {
   numberTextEl.style.display = "none";
-  //remember to play music
-  // playMusic();
+  playMusic();
   setTimeout(() => {
     confetiBalloons();
   }, 0);
 }
-
+// show and hide card section
 function showBook() {
-  bookEl.classList.add('show');
+  bookEl.classList.add("show");
 }
 function closeBook() {
-  bookEl.classList.remove('show');
+  bookEl.classList.remove("show");
 }
 
-function playMusic () {
-    happyBirthdaySongEl.muted = true;
-    happyBirthdaySongEl.play();
+// auto play music
+function playMusic() {
+  happyBirthdaySongEl.muted = true;
+  happyBirthdaySongEl.play();
 
-    setTimeout(() => {
+  setTimeout(() => {
     happyBirthdaySongEl.muted = false;
-    }, 200);
-}
-function cakeAnimation() {
-    realCakeEl.style.display = "block";
-    cakeBirthdayEl.style.display = "block";
-    overlayEl.style.opacity = 1;
-    setTimeout(() => {
-      candleEl.classList.add("white");
-      for (let i = 0; i < dancingAnimalsArr.length; i++) {
-        dancingAnimalsArr[i].classList.add("show");
-      }
-    }, 3000)
-    setTimeout(() => {
-      for (let i = 0; i < fireElArr.length; i++) {
-        fireElArr[i].classList.add("fuego");
-      }
-    }, 1500)
-    setTimeout(() => {
-      showBookBtn.style.opacity = 1;
-    }, 5000)
-    
+  }, 200);
 }
 
+// cake animation after happy birthday confetti
+function cakeAnimation() {
+  realCakeEl.style.display = "block";
+  cakeBirthdayEl.style.display = "block";
+  setInterval(() => {
+    randomizedConfetti();
+  }, 200);
+  setTimeout(() => {
+    candleEl.classList.add("white");
+    for (let i = 0; i < dancingAnimalsArr.length; i++) {
+      dancingAnimalsArr[i].classList.add("show");
+    }
+  }, 2500);
+  setTimeout(() => {
+    for (let i = 0; i < fireElArr.length; i++) {
+      fireElArr[i].classList.add("fuego");
+    }
+  }, 500);
+  setTimeout(() => {
+    showBookBtn.style.opacity = 1;
+  }, 4000);
+}
+
+// confetti animation generated randomly
+function randomizedConfetti() {
+  let randomX = Math.floor(Math.random() * document.body.clientWidth);
+  let randomY = Math.floor(Math.random() * window.innerHeight);
+  const burst = new mojs.Burst({
+    top: 0,
+    left: 0,
+    radius: { 0: 200 },
+    count: 20,
+    children: {
+      shape: "circle",
+      fill: ["lightgoldenrodyellow", "#111111"],
+      duration: 2000,
+    },
+  }).tune({
+    x: randomX,
+    y: randomY,
+  });
+  burst.replay();
+}
+
+// confetti balloons animation comes along with happy birthday text
 function confetiBalloons() {
   let w = (c.width = window.innerWidth),
     h = (c.height = window.innerHeight),
@@ -368,6 +392,20 @@ function confetiBalloons() {
         this.cx += this.vx;
         this.cy += this.vy += opts.upFlow;
 
+        // Boundary checks
+        if (this.cy - this.size < -hh) {
+          this.cy = -hh + this.size;
+          this.vy *= -0.8; // Bounce off ceiling
+        }
+        if (this.cx - this.size < -hw) {
+          this.cx = -hw + this.size;
+          this.vx *= -1;
+        }
+        if (this.cx + this.size > hw) {
+          this.cx = hw - this.size;
+          this.vx *= -1;
+        }
+
         ctx.fillStyle = this.color;
         ctx.beginPath();
         generateBalloonPath(this.cx, this.cy, this.size);
@@ -384,9 +422,6 @@ function confetiBalloons() {
           this.cx + this.dx,
           this.cy + this.dy + this.size
         );
-
-        if (this.cy + this.size < -hh || this.cx < -hw || this.cy > hw)
-          this.phase = "done";
       }
     }
   };
@@ -447,6 +482,7 @@ function confetiBalloons() {
   }
 
   let animationStopped = false;
+  let cakeTriggered = false;
 
   function anim() {
     if (animationStopped) return;
@@ -461,15 +497,15 @@ function confetiBalloons() {
     for (var l = 0; l < letters.length; ++l) {
       letters[l].step();
       if (letters[l].phase !== "done") done = false;
+
+      // Trigger cake animation when balloons start appearing
+      if (!cakeTriggered && letters[l].phase === "balloon") {
+        cakeTriggered = true;
+        setTimeout(cakeAnimation, 5000); // Wait a bit after balloons appear
+      }
     }
 
     ctx.translate(-hw, -hh);
-
-    // if (done) for (var l = 0; l < letters.length; ++l) letters[l].reset();
-    if (done) {
-        animationStopped = true;
-        cakeAnimation();
-    }
   }
 
   for (let i = 0; i < opts.strings.length; ++i) {
@@ -499,4 +535,3 @@ function confetiBalloons() {
     ctx.font = opts.charSize + "px Verdana";
   });
 }
-
